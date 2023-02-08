@@ -9,11 +9,11 @@ function Nav(props){
             <ul>
                 <a href="#"><h1 className="logo">aNyThNG</h1></a>
                 <div className="links">
-                    {props.username && <a href="#">Feed</a>}
-                    {props.usertype=="creator" && <a href="#">Add</a>}
-                    {props.username && <a href="#">Profile</a>}
-                    <a href="#">{props.username ? "Logout" : "Login"}</a>
-                    {!props.username && <a href="#">Register</a>}
+                    {props.username && <a href="feed">Feed</a>}
+                    {props.usertype=="creator" && <a href="add">Add</a>}
+                    {props.username && <a href="profile">Profile</a>}
+                    <a href={props.username ? "Logout" : "Login"}>{props.username ? "Logout" : "Sign In"}</a>
+                    {!props.username && <a href="Register">Register</a>}
                 </div>
                 
                 <div className="search-bar">

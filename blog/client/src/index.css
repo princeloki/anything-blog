@@ -1,4 +1,4 @@
-
+@import url('form.css');
 
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -17,7 +17,7 @@
   -webkit-text-size-adjust: 100%;
 }
 
-body, *, h1, a{
+body, *, h1, h2, h3, a{
   padding: 0;
   margin: 0;
   color:rgba(24, 24, 24, 0.87);
@@ -34,6 +34,12 @@ button:hover{
 svg:hover{
   cursor: pointer;
 }
+
+#root{
+  margin: 0;
+  padding: 2em;
+}
+
 
 nav{
   height: 4em;
@@ -220,4 +226,3 @@ ul{
   height: 1.5em;
   border-radius: 50%;
 }
-

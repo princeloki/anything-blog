@@ -1,0 +1,93 @@
+.form-page{
+    background: #fff !important;
+    width: 35%;
+    margin: 5em 50vw 0 auto;
+    height: 70vh;
+    text-align: left;
+    justify-content: left;
+    border-radius: 5px;
+}
+
+.form-page .container{
+    padding: 1em;
+}
+
+.form-page > *{
+    margin: 0 !important;
+    color: rgb(57, 57, 57) !important;
+}
+
+.form-page h1{
+    margin-left: 0.5em !important; 
+    color:rgb(57, 57, 57) !important;
+}
+
+.form-page p{
+    margin-left: 1.5em !important;
+    font-size: 0.8em;
+}
+
+.form-page a{
+    text-decoration: underline;
+    font-size: 0.8em;
+    color: rgb(175, 175, 175);
+}
+
+.form-page form{
+    margin: 1em auto 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    width: 90%;
+}
+
+.form-page input, .form-page button{
+    height: 3em;
+}
+
+.form-page input{
+    background: none;
+    border: 1px solid rgb(103, 103, 103);
+    border-radius: 3px;
+}
+
+.form-page label{
+    font-size: 0.9em;
+    font-weight: bold;
+}
+
+.pass-label{
+    display: flex;
+    flex-direction: row;
+}
+
+.pass-label > a{
+    margin-left: auto;
+}
+
+.check{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 2em;
+}
+#checkbox{
+    margin-right: auto !important;
+    background: #fff !important;
+    border: none !important;
+    color: #fff !important;
+}
+
+#check-label{
+    font-weight: 400 !important;
+    font-size: 0.7em;
+
+}
+
+.form-page button{
+    background: rgb(86, 179, 155);
+    border: none;
+    color: #fff;
+    font-weight: bold;
+    border-radius: 3px;
+}
