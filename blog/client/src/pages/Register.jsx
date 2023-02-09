@@ -9,6 +9,7 @@ function Register(){
         email: '',
         username: '',
         password: '',
+        second_password: '',
         blogs:[],
         subscribed: false,
     })
@@ -24,11 +25,25 @@ function Register(){
 
     function handleSubmit(e){
         e.preventDefault()
+        const emailR = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        const passwordNumR = /[0-9]/
+        const passwordCapR = /[A-Z]/
+        var passwordRangeR = /^.{8,20}$/;
         return(
+            formData.second_password == formData.password ? 
+            emailR.test(formData.email) == true ?
+            passwordNumR.test(formData.password) == true ? 
+            passwordCapR.test(formData.password) == true ? 
+            passwordRangeR.test(formData.password) == true ?
             axios.post("http://localhost:3000/register", formData)
             .then(data=>{
                 console.log(data);
             })
+            : alert("Password must be between 8 and 20 character in length")
+            : alert("Password must contain at least one upper case letter")
+            : alert("Password must contain at least one number")
+            : alert("'.' is missing from the email")
+            : alert("Passwords do not match")
         )
     }
 
@@ -54,8 +69,7 @@ function Register(){
                         <label htmlFor="password">Password</label>
                         <input id = "password" name="password" type="password" value={formData.password} onChange={(e)=>handleChange(e)}  placeholder="..Enter password here"/>
                         <label htmlFor="password">Confirm Password</label>
-                        <input id = "second_password" name="password" type="password" placeholder="..Enter password here"/>
-
+                        <input id = "second_password" name="second_password" type="password" value={formData.second_password} onChange={(e)=>handleChange(e)} placeholder="..Enter password here"/>
                         <button type="submit">Sign Up</button>
                     </form>
                 </div>

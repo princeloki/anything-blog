@@ -3,10 +3,20 @@ const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const path = require('path')
 const cors = require('cors')
+const users = require('./Models/Users')
+const User = mongoose.model('User', users.schema)
+const session = require('express-session')
+const bcrypt = require('bcrypt');
 
 const app = express()
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
+
+app.use(session({
+    secret: "secret",
+    resave: false,
+    saveUninitialized: false,
+}))
 
 require('dotenv/config')
 app.use(cors({
@@ -14,12 +24,44 @@ app.use(cors({
     optionsSuccessStatus: 200
   }));
 
-app.post('/register', (req, res) => {
-    res.send(req.body)
+app.post('/register', async (req, res) => {
+    try{
+        const saltRounds = 10
+        const hash = await bcrypt.hash(req.body.password, saltRounds);
+        let users
+        if(req.body.type === 'Reader'){
+            users = new User({
+                "type": req.body.type,
+                "email": req.body.email,
+                "username": req.body.username,
+                "password": hash,
+                "blogs": [],
+                "subscribed": false,
+                "image": "",
+            })
+        } else if(req.body.type === 'Creator'){
+            users = new User({
+                "type": req.body.type,
+                "email": req.body.email,
+                "username": req.body.username,
+                "password": hash,
+                "blogs": [],
+                "image": "",
+            })
+        }
+        await users.save() 
+        res.send({"message":'User registered'});
+    }catch (err) {
+        res.json({error: err.message});
+    }
 })
 
 app.post('/login', (req, res) => {
     res.json({message: "Login targetted"})
+})
+
+app.get('/logout', (req, res) => {
+
 })
 
 mongoose.connect(

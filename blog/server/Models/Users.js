@@ -9,6 +9,10 @@ const userSchema = mongoose.Schema({
         type: 'String',
         required: true,
     },
+    username:{
+        type: 'String',
+        required: true,
+    },
     password: {
         type: 'String',
         required: true,
@@ -19,10 +23,10 @@ const userSchema = mongoose.Schema({
     },
     subscribed:{
         type: 'Boolean',
-        required: true,
+        required: false,
     },
     image:{
-        type: 'BSON',
+        type: 'String',
         required: false,
     }
 })
