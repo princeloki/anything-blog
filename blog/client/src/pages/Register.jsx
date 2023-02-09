@@ -1,17 +1,19 @@
 import React from "react"
 import Nav from './components/Nav'
 import {useState} from 'react'
+import axios from "axios";
 
-function Login(){
+function Register(){
     const [formData, setFormData] = useState({
-        option: '',
+        type: '',
         email: '',
         username: '',
         password: '',
+        blogs:[],
+        subscribed: false,
     })
     
     function handleChange(e){
-        console.log(formData)
         setFormData(prevFormData=>{
             return{
                 ...prevFormData,
@@ -20,9 +22,13 @@ function Login(){
         })
     }
 
-    function handleSubmit(){
+    function handleSubmit(e){
+        e.preventDefault()
         return(
-            console.log(formData)
+            axios.post("http://localhost:3000/register", formData)
+            .then(data=>{
+                console.log(data);
+            })
         )
     }
 
@@ -35,7 +41,7 @@ function Login(){
                     <form onSubmit={handleSubmit}>
                         <label>
                             Choose account type
-                            <select className="select" onChange={(e)=>handleChange(e)}>
+                            <select name="type" value={formData.type} className="select" onChange={(e)=>handleChange(e)}>
                                 <option>--Choose Account Type--</option>
                                 <option value="Reader">Reader</option>
                                 <option value="Creator">Creator</option>
@@ -50,7 +56,7 @@ function Login(){
                         <label htmlFor="password">Confirm Password</label>
                         <input id = "second_password" name="password" type="password" placeholder="..Enter password here"/>
 
-                        <button type="submit">Login</button>
+                        <button type="submit">Sign Up</button>
                     </form>
                 </div>
             </div>
@@ -69,4 +75,4 @@ function Login(){
     )
 }
 
-export default Login
+export default Register
