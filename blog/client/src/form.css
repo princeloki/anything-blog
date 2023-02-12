@@ -1,3 +1,18 @@
+.app{
+    position: relative;
+}
+
+.arrow-left{
+    position: absolute;
+    top: 0;
+    left: 1em;
+    font-size: 1.5em;
+}
+
+.arrow-left path{
+    color: #fff;
+}
+
 .form-page{
     background: #fff !important;
     width: 35%;
@@ -79,7 +94,6 @@
 #check-label{
     font-weight: 400 !important;
     font-size: 0.7em;
-
 }
 
 .form-page button{

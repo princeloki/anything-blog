@@ -1,9 +1,17 @@
+
+
 import React from "react"
-import Nav from './components/Nav'
-import {useState} from "react"
+import { useContext, useState } from "react"
+import { FaArrowLeft } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom'
+import { AuthContext } from "./components/AuthContext";
+import axios from 'axios'
+
 
 function Login(){
+    const navigate = useNavigate();
     const [checked, setChecked] = useState(false)
+    const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
     const [formData, setFormData] = useState({
         email: '',
         password: ''
@@ -18,19 +26,36 @@ function Login(){
         })
     }
 
-    function handleSubmit(){
+    function handleSubmit(e){
+        e.preventDefault()
         return(
-            console.log(formData)
+            axios.post("http://127.0.0.1:3000/api/login", formData)
+            .then(data=>{
+                if(data.status === 200){  
+                    setIsLoggedIn(true)
+                    localStorage.setItem("token", data.data.token)
+                    navigate("/")
+                } else {
+                    const error = new Error(res.error);
+                    throw error;
+                }
+            })
+            .catch(error=>{
+                console.error(error)
+            })
         )
     }
 
+
+
     return(
         <div className="app">
+            <FaArrowLeft onClick={()=>navigate('/', { replace: true })} className="arrow-left"/>
             <div className="form-page">
                 <div className="container">
                     <h1>Sign In</h1>
                     <p>Don't have an account yet? <a href="register">Sign Up</a></p>
-                    <form onSubmit={handleSubmit}>
+                    <form onSubmit={(e)=>handleSubmit(e)}>
                         <label htmlFor="email">Email Address</label>
                         <input id = "email" name="email" type="email" value={formData.email} onChange={(e)=>handleChange(e)}  placeholder="..Enter your email address please"/>
                         <div className="pass-label">
@@ -62,4 +87,6 @@ function Login(){
 }
 
 export default Login
+
+
 

@@ -2,8 +2,11 @@ import React from "react"
 import Nav from './components/Nav'
 import {useState} from 'react'
 import axios from "axios";
+import { FaArrowLeft } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom'
 
 function Register(){
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         type: '',
         email: '',
@@ -35,9 +38,16 @@ function Register(){
             passwordNumR.test(formData.password) == true ? 
             passwordCapR.test(formData.password) == true ? 
             passwordRangeR.test(formData.password) == true ?
-            axios.post("http://localhost:3000/register", formData)
+            axios.post("http://127.0.0.1:3000/api/register", formData)
             .then(data=>{
-                console.log(data);
+                if(data.data.message=="Username already exists"){
+                    alert("Username already exists");
+                } else if(data.data.message=="Email already exists"){
+                    alert("Email already exists");
+                } else{
+                    alert(data.data.message);
+                    console.log(data.data.message)
+                }
             })
             : alert("Password must be between 8 and 20 character in length")
             : alert("Password must contain at least one upper case letter")
@@ -49,6 +59,7 @@ function Register(){
 
     return(
         <div className="app">
+        <FaArrowLeft onClick={()=>navigate('/', { replace: true })} className="arrow-left"/>
             <div className="form-page">
                 <div className="container">
                     <h1>Sign Up</h1>

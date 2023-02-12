@@ -9,12 +9,12 @@ import Profile from './pages/Profile'
 import Subscribe from './pages/Subscribe'
 
 
-const Pages = (props) => (
+const Pages = () => (
     <Routes>
       <Route exact path="/" element={<Explore />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
-      <Route path="/feed" element={<Feed />} />
+      <Route path="/feed" element={<Feed/>} />
       <Route path="/add" element={<Add />} />
       <Route path="/profile" element={<Profile />} />
       <Route path="/sub" element={<Subscribe />} />

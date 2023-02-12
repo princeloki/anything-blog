@@ -1,7 +1,7 @@
 import React from "react"
 import Nav from './components/Nav'
 
-function Blog(){
+function Blog(props){
     return(
         <div></div>
     )
