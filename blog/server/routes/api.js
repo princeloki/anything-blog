@@ -1,5 +1,7 @@
-
-
+const mongoose = require('mongoose')
+const bcrypt = require('bcrypt');
+const users = require('../Models/Users')
+const User = mongoose.model('User', users.schema)
 const express = require('express')
 const passport = require('passport')
 const jwt = require("jsonwebtoken")

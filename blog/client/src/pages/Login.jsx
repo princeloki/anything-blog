@@ -34,7 +34,7 @@ function Login(){
                 if(data.status === 200){  
                     setIsLoggedIn(true)
                     localStorage.setItem("token", data.data.token)
-                    navigate("/")
+                    navigate("/", {replace: true})
                 } else {
                     const error = new Error(res.error);
                     throw error;

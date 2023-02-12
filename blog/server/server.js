@@ -1,5 +1,3 @@
-
-
 const express = require('express')
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
@@ -71,60 +69,13 @@ app.use(cors({
     origin: 'http://127.0.0.1:8000',
     optionsSuccessStatus: 200
   }));
-
-app.use(express.static(path.join(__dirname, 'client/src')));
-
+  
 app.use('/api', apiRouter);
 
 app.get("*", (req, res) => {
     return res.sendFile(path.join(__dirname, "/client/src/index.html"));
 })
 
-app.post('/register', async (req, res) => {
-    try{
-        const saltRounds = 10
-        const hash = await bcrypt.hash(req.body.password, saltRounds);
-        let user = await User.findOne({username: req.body.username})
-        let users
-        if(user){
-            res.send({message: "Username already exists"})
-        } else{
-            let ema = await User.findOne({email: req.body.email})
-            if(ema){
-                res.send({message: "Email already exists"})
-            } else{
-                if(req.body.type === 'Reader'){
-                    users = new User({
-                        "type": req.body.type,
-                        "email": req.body.email,
-                        "username": req.body.username,
-                        "password": hash,
-                        "blogs": [],
-                        "subscribed": false,
-                        "image": "",
-                    })
-                } else if(req.body.type === 'Creator'){
-                    users = new User({
-                        "type": req.body.type,
-                        "email": req.body.email,
-                        "username": req.body.username,
-                        "password": hash,
-                        "blogs": [],
-                        "image": "",
-                    })
-                }                
-                await users.save() 
-                res.send({"message":'User registered'});
-            }
-        }
-    }catch (err) {
-        res.json({error: err.message});
-    }
-})
-
-app.get('/logout', (req, res) => {
-    req.session.destroy();
-})
 
 mongoose.connect(
     process.env.DB_CONNECTION,

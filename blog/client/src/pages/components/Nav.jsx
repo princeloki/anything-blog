@@ -14,6 +14,7 @@ function Nav({type, username}){
     function logout(){
         localStorage.removeItem("user")
         localStorage.removeItem("token")
+        navigate("/login", {replace: true})
         window.location.reload()
     }
 

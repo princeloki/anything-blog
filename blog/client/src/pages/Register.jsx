@@ -46,7 +46,7 @@ function Register(){
                     alert("Email already exists");
                 } else{
                     alert(data.data.message);
-                    console.log(data.data.message)
+                    console.log(data.data)
                 }
             })
             : alert("Password must be between 8 and 20 character in length")
