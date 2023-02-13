@@ -77,15 +77,19 @@ router.get('/secret', passport.authenticate("jwt", { session:false }), (req, res
             res.json({
                 type: "Reader",
                 username: req.user.username,
+                email: req.user.email,
                 blogs: req.user.blogs,
-                subscribed: req.user.subscribed
+                subscribed: req.user.subscribed,
+                image: ""
             })
         } else if(req.user.type=="Creator"){          
             res.json({
                 type: "Creator",
                 username: req.user.username,
+                email: req.user.email,
                 blogs: req.user.blogs,
-                subscribed: false
+                subscribed: false,
+                image: ""
             })
         }
     }

@@ -11,8 +11,10 @@ function App() {
   const [user, setUser] = useState({
       type: '',
       username: '',
+      email: '',
       blogs:[],
       subscribed: false,
+      image: ""
   })
 
   const fetchData = async () => {
