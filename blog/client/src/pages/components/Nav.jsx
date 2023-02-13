@@ -27,7 +27,7 @@ function Nav({type, username}){
     return(
         <nav>
             <ul>
-                <a href="#"><h1 className="logo">aNyThNG</h1></a>
+                <a href="/"><h1 className="logo default">aNyThNG</h1></a>
                 <div className="links">
                     {user.type=="Reader" && <a href="favorite">Favorites</a>}
                 </div>
