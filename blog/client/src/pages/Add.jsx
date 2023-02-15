@@ -10,14 +10,16 @@ function Add(){
     const [blogData, setBlogData] = useState({
         Title: "",
         Category: "",
+        mainImg: "",
         blogData: ""
     })
 
     function postBlog(){
-        console.log(blogData)
+        console.log(blogData.blogData)
     }   
 
     function handleChange(e){
+        console.log(blogData)
         setBlogData(prevBlogData=>{
             return{
             ...prevBlogData,
@@ -27,6 +29,7 @@ function Add(){
     }
 
     function handleEditor(e, value){
+        console.log(blogData.blogData)
         setBlogData(prevBlogData=>{
             return{
                 ...prevBlogData,
@@ -39,11 +42,11 @@ function Add(){
         return {
             upload: async () => {
               const data = new FormData();
-              data.append('file', await loader.file);
-              console.log("Form data", data)
+              data.append("name", await loader.file.name)
+              data.append('img', await loader.file);
         
               try {
-                const response = await axios.post('http://127.0.0.1:3000/api/image', data);
+                const response = await axios.post('http://127.0.0.1:3000/api/upload', data);
                 return {
                   default: response.data.url
                 };
