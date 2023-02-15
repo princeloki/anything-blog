@@ -20,7 +20,6 @@ function Nav({type, username}){
     }
 
     function show(){
-        console.log("logging")
         active == "inactive" ? setActive("active") : setActive("inactive")
     }
 

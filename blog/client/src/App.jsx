@@ -42,7 +42,6 @@ function App() {
   }, [])
 
   useEffect(() =>{
-    console.log(isLoggedIn)
     if(isLoggedIn && !user.username) {
       fetchData();
     }
