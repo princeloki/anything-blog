@@ -1,25 +1,44 @@
 
 
 import Nav from "./components/Nav"
-import React, { Component,useState } from 'react';
+import React, { useEffect,useState,useContext } from 'react';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import {UserDataContext} from "./components/Usercontext"
 import axios from 'axios'
 
 function Add(){
+    const today = new Date();
+    const date = `${today.getDate()}/${today.getMonth() + 1}/${today.getFullYear()}`;
+    const {user, setUser} = useContext(UserDataContext)
     const [blogData, setBlogData] = useState({
         Title: "",
+        Author: user.name,
+        Date: date,
         Category: "",
         mainImg: "",
         blogData: ""
     })
 
-    function postBlog(){
-        console.log(blogData.blogData)
+    const [uploadedImageUrl, setUploadedImageUrl] = useState("");
+
+    useEffect(() =>{
+        console.log(user);
+    },[])
+
+    function postBlog(e){
+        console.log(blogData)
+        // e.preventDefault();
+        // axios.post("http://127.0.0.1:3000/api/blogpost", blogData)
+        // .then(data => {
+        //     console.log(data.data);
+        // })
+        // .catch(err => {
+        //     console.log(err);
+        // })
     }   
 
     function handleChange(e){
-        console.log(blogData)
         setBlogData(prevBlogData=>{
             return{
             ...prevBlogData,
@@ -29,7 +48,6 @@ function Add(){
     }
 
     function handleEditor(e, value){
-        console.log(blogData.blogData)
         setBlogData(prevBlogData=>{
             return{
                 ...prevBlogData,
@@ -64,6 +82,27 @@ function Add(){
         }
     }
 
+    function uploadImage(e){
+        console.log("Uploading")
+        const file = e.target.files[0];
+        const formData = new FormData();
+        formData.append("img", file);
+        formData.append("name", file.name);
+        axios.post("http://127.0.0.1:3000/api/upload", formData)
+        .then(response => {
+            const imageURL = response.data;
+            setUploadedImageUrl(imageURL);
+            setBlogData(prevBlogData =>{
+                return {
+                    ...prevBlogData,
+                    mainImg: imageURL
+                }
+            })
+        })
+        
+        console.log(blogData.mainImg)
+    }
+
     return(
         <div>
             <Nav />
@@ -71,12 +110,11 @@ function Add(){
                 <div className="container">
                     <h1 className='head default'>Blog Maker</h1>
                     <label htmlFor="Title">Title</label>
-                    <input onChange={(e)=>handleChange(e)} value={blogData.Title} id="Title" name="Title" type="text" placeholder="...Enter Blog name here"/>
+                    <input className="in-text" onChange={(e)=>handleChange(e)} value={blogData.Title} id="Title" name="Title" type="text" placeholder="...Enter Blog name here"/>
                     <label htmlFor="Category">Category</label>
-                    <input onChange={(e)=>handleChange(e)} value={blogData.Category} id="Category" name="Category" type="text" placeholder="...Enter Blog type here"/>
+                    <input className="in-text"  onChange={(e)=>handleChange(e)} value={blogData.Category} id="Category" name="Category" type="text" placeholder="...Enter Blog type here"/>
                     <div className="upload-info">
-                        <button className="upload">Upload main image</button>
-                        <p></p>
+                        <input type="file" accept="image/*" onChange={(e)=>uploadImage(e)} className="upload"/>
                     </div>
 
                     

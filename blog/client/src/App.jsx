@@ -10,6 +10,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [user, setUser] = useState({
       type: '',
+      name: '',
       username: '',
       email: '',
       blogs:[],
@@ -42,6 +43,7 @@ function App() {
   }, [])
 
   useEffect(() =>{
+    console.log(user.name)
     if(isLoggedIn && !user.username) {
       fetchData();
     }

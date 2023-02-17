@@ -3,6 +3,7 @@ import React, { createContext } from 'react';
 export const UserDataContext = createContext({
   user: {
     type: '',
+    name: '',
     email: '',
     username: '',
     password: '',

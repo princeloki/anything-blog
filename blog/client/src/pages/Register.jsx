@@ -9,6 +9,7 @@ function Register(){
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
         type: '',
+        name: '',
         email: '',
         username: '',
         password: '',
@@ -73,6 +74,8 @@ function Register(){
                                 <option value="Creator">Creator</option>
                             </select>
                         </label>
+                        <label htmlFor="name">Full name</label>
+                        <input id = "name" name="name" type="name" value={formData.name} onChange={(e)=>handleChange(e)} placeholder="..Enter your full name here"/>
                         <label htmlFor="email">Email Address</label>
                         <input id = "email" name="email" type="email" value={formData.email} onChange={(e)=>handleChange(e)} placeholder="..Enter email address here"/>
                         <label htmlFor="username">Username</label>

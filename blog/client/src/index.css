@@ -327,7 +327,7 @@ ul{
   padding-bottom: 1em;
 }
 
-.blog-maker-page input{
+.in-text{
   background: none;
   border: 1px solid rgb(80, 80, 80);
   border-radius: 5px;
@@ -362,10 +362,9 @@ ul{
   border: none;
   border-radius: 8px;
   height: 2em;
-  font-size: 0.6em;
+  font-size: 0.8em;
   font-weight: bold;
   color: #fff;
-  width: 15%;
   height: 3em;
 }
 
