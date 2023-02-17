@@ -46,10 +46,8 @@ function Login(){
         )
     }
 
-
-
     return(
-        <div className="app">
+        <div className="login-page">
             <FaArrowLeft onClick={()=>navigate('/', { replace: true })} className="arrow-left"/>
             <div className="form-page">
                 <div className="container">

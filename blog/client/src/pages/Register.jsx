@@ -59,8 +59,8 @@ function Register(){
     }
 
     return(
-        <div className="app">
-        <FaArrowLeft onClick={()=>navigate('/', { replace: true })} className="arrow-left"/>
+        <div className="register-page">
+            <FaArrowLeft onClick={()=>navigate('/', { replace: true })} className="arrow-left"/>
             <div className="form-page">
                 <div className="container">
                     <h1>Sign Up</h1>

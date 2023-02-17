@@ -54,6 +54,11 @@ svg:hover{
   padding: 2em;
 }
 
+.main-container{
+  width: 90%;
+  margin: 3em auto;
+}
+
 nav{
   height: 4em;
   margin-bottom: 2em;
@@ -176,7 +181,6 @@ ul{
 
 .body-section{
   width: 80%;
-  height: 100vh;
   margin: 0 auto 4em auto;
   display: flex;
   flex-direction: row;
@@ -199,7 +203,6 @@ ul{
 }
 
 .item-container:hover::after {
-  content: "Click To Read";
   font-size: 1.5em !important;
   color: #fff;
   position: absolute;
@@ -309,6 +312,97 @@ ul{
 
 }
 
+footer{
+  display: flex;
+  flex-direction: column;
+  background: #000000;
+  text-align: left;
+}
+
+footer *{
+  color: #fff;
+}
+
+.footer-container{
+  margin: 1em 8em;
+  padding-top: 3em;
+}
+
+.top, .bottom{
+  display: flex;
+  flex-direction: row;
+}
+
+.top{
+  border-bottom: 1px solid #fff;
+  padding-bottom: 2em;
+}
+
+.bottom{
+  padding: 3em 0;
+}
+
+footer p{
+  font-weight: 300;
+}
+
+footer input{
+  background: #fff;
+  border: none;
+  border-radius: 5px;
+  height: 2em;
+  font-size: 1em;
+  color:rgb(39, 39, 39) !important;
+}
+
+.row1, .row2, .row3{
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  width: 30%;
+  margin: 0 auto;
+}
+
+footer form{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+footer textarea{
+  font-size: 1em;
+  height: 8em;
+  background: #fff;
+  border: none;
+  border-radius: 5px;
+  color:rgb(39, 39, 39) !important;
+  font-family: sans-serif;
+}
+
+footer button{
+  height: 2.5em;
+  width: 100%;
+  border: none;
+  border-radius: 5px;
+  background:rgb(86, 179, 155);
+  font-size: 1em;
+  font-weight: bold;
+}
+
+.bottom{
+  gap: 4em;
+}
+
+.socials{
+  display: flex;
+  flex-direction: row;
+  gap: 2em;
+}
+
+.socials svg{
+  font-size: 2em;
+}
 
 .blog-maker-page{
   display: flex;

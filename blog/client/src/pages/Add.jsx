@@ -7,6 +7,7 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { UserDataContext } from "./components/Usercontext"
 import axios from 'axios'
 import { useNavigate } from "react-router-dom";
+import Footer from "./components/Footer"
 
 function Add(){
     const navigate = useNavigate();
@@ -113,42 +114,45 @@ function Add(){
 
     return(
         <div>
-            <Nav />
-            <div className="blog-maker-page">
-                <div className="container">
-                    <form onSubmit={postBlog}>
-                        <h1 className='head default'>Blog Maker</h1>
-                        <label htmlFor="Title">Title</label>
-                        <input className="in-text" onChange={(e)=>handleChange(e)} value={blogData.Title} id="Title" name="Title" type="text" placeholder="...Enter Blog name here"/>
-                        <label htmlFor="Category">Category</label>
-                        <input className="in-text"  onChange={(e)=>handleChange(e)} value={blogData.Category} id="Category" name="Category" type="text" placeholder="...Enter Blog type here"/>
-                        <div className="upload-info">
-                            <input type="file" accept="image/*" onChange={(e)=>uploadImage(e)} className="upload"/>
-                        </div>
+            <div className="main-container">
+                <Nav />
+                <div className="blog-maker-page">
+                    <div className="container">
+                        <form onSubmit={postBlog}>
+                            <h1 className='head default'>Blog Maker</h1>
+                            <label htmlFor="Title">Title</label>
+                            <input className="in-text" onChange={(e)=>handleChange(e)} value={blogData.Title} id="Title" name="Title" type="text" placeholder="...Enter Blog name here"/>
+                            <label htmlFor="Category">Category</label>
+                            <input className="in-text"  onChange={(e)=>handleChange(e)} value={blogData.Category} id="Category" name="Category" type="text" placeholder="...Enter Blog type here"/>
+                            <div className="upload-info">
+                                <input type="file" accept="image/*" onChange={(e)=>uploadImage(e)} className="upload"/>
+                            </div>
 
-                        
-                        <div className='ckeditor'>
-                            <CKEditor
-                                editor={ ClassicEditor }
-                                config={{
-                                    extraPlugins: [uploadPlugin]
-                                }}
-                                onChange={ ( e, editor ) => {
-                                    handleEditor(e, editor.getData());
-                                } }
-                                onBlur={ ( event, editor ) => {
-                                    console.log( 'Blur.', editor );
-                                } }
-                                onFocus={ ( event, editor ) => {
-                                    console.log( 'Focus.', editor );
-                                } }
-                            />
-                        </div>
+                            
+                            <div className='ckeditor'>
+                                <CKEditor
+                                    editor={ ClassicEditor }
+                                    config={{
+                                        extraPlugins: [uploadPlugin]
+                                    }}
+                                    onChange={ ( e, editor ) => {
+                                        handleEditor(e, editor.getData());
+                                    } }
+                                    onBlur={ ( event, editor ) => {
+                                        console.log( 'Blur.', editor );
+                                    } }
+                                    onFocus={ ( event, editor ) => {
+                                        console.log( 'Focus.', editor );
+                                    } }
+                                />
+                            </div>
 
-                        <button type="submit" className="blog-button">Post</button>
-                    </form>
+                            <button type="submit" className="blog-button">Post</button>
+                        </form>
+                    </div>
                 </div>
             </div>
+            <Footer />
         </div>
     )
 }

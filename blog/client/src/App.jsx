@@ -68,11 +68,9 @@ function App() {
     <BlogDataContext.Provider value={{ blogs, setBlogs }}>
       <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
         <UserDataContext.Provider value={{ user, setUser }}>
-          <div className="App">
             <BrowserRouter>
               <Pages />
             </BrowserRouter>
-          </div>
         </UserDataContext.Provider>
     </AuthContext.Provider>
   </BlogDataContext.Provider>

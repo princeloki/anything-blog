@@ -4,7 +4,7 @@
 
 .arrow-left{
     position: absolute;
-    top: 0;
+    top: 4em;
     left: 1em;
     font-size: 1.5em;
 }
@@ -13,16 +13,21 @@
     color: #fff;
 }
 
+.login-page, .register-page{
+    padding-top: 4em;
+}
+
 .form-page{
     background: #fff !important;
     width: 35%;
-    margin: 1em 50vw 0 auto;
+    margin: 0 50vw 0 auto;
     height: 85vh;
     text-align: left;
     justify-content: left;
     border-radius: 5px;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
 }
+
 
 .form-page .container{
     padding: 1em;
