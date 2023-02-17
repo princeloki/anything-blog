@@ -6,10 +6,18 @@ import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { UserDataContext } from "./components/Usercontext"
 import axios from 'axios'
+import { useNavigate } from "react-router-dom";
 
 function Add(){
+    const navigate = useNavigate();
+    // const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     const today = new Date();
-    const date = `${today.getDate()}/${today.getMonth() + 1}/${today.getFullYear()}`;
+    const options = { weekday: 'long', year: 'numeric', month: 'numeric', day: 'numeric' };
+    const formattedDate = today.toLocaleDateString('en-US', options);
+    const [dayOfWeek, dateString] = formattedDate.split(', ');
+
+    const date = `${dayOfWeek}, ${dateString}`;
+
     const {user, setUser} = useContext(UserDataContext)
     const [blogData, setBlogData] = useState({
         Title: "",
@@ -36,12 +44,7 @@ function Add(){
         axios.post("http://127.0.0.1:3000/api/blogpost", blogData)
         .then(data => {
             console.log(data.data.message);
-            setUser(prevUserData=>{
-                return {
-                    ...prevUserData,
-                    blogs: [...blogData],
-                }
-            })
+            navigate("/", {replace: true});
         })
         .catch(err => {
             console.log(err);

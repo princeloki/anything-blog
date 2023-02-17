@@ -5,8 +5,10 @@ import React, { useContext, useState,useEffect } from "react"
 import axios from 'axios'
 import { AuthContext } from './pages/components/AuthContext'
 import { UserDataContext } from './pages/components/Usercontext'
+import { BlogDataContext } from './pages/components/Blogscontext'
 
 function App() {
+  const [blogs, setBlogs] = useState([])
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [user, setUser] = useState({
       type: '',
@@ -34,6 +36,20 @@ function App() {
     }
   }
 
+  useEffect(()=>{
+    try{
+      axios.get("http://127.0.0.1:3000/api/blogs")
+      .then(data=>{
+        setBlogs(data.data)
+      })
+      .catch(err=>{
+        console.error(err);
+      })
+    } catch(err){
+
+    }
+  },[])
+
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem('user'))
     if (storedUser) {
@@ -43,22 +59,23 @@ function App() {
   }, [])
 
   useEffect(() =>{
-    console.log(user)
     if(isLoggedIn && !user.username) {
       fetchData();
     }
   }, [isLoggedIn, user.username])
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
-      <UserDataContext.Provider value={{ user, setUser }}>
-        <div className="App">
-          <BrowserRouter>
-            <Pages />
-          </BrowserRouter>
-        </div>
-      </UserDataContext.Provider>
-  </AuthContext.Provider>
+    <BlogDataContext.Provider value={{ blogs, setBlogs }}>
+      <AuthContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
+        <UserDataContext.Provider value={{ user, setUser }}>
+          <div className="App">
+            <BrowserRouter>
+              <Pages />
+            </BrowserRouter>
+          </div>
+        </UserDataContext.Provider>
+    </AuthContext.Provider>
+  </BlogDataContext.Provider>
   )
 }
 

@@ -1,20 +1,29 @@
+
+
 import React from 'react';
 import Item from './Item'
-import {useState} from 'react'
+import { useEffect, useContext,useState } from 'react'
+import { BlogDataContext } from './Blogscontext';
 
 function Main(props){
-    // const [items, setItems] = useState([{}])
+    const {blogs, setBlogs} = useContext(BlogDataContext)
+    const [items, setItems] = useState([])
+
+    useEffect(() =>{
+        const bgs =blogs.map((blog, index)=>{
+            return(
+            <Item 
+            key={index}
+            blog={blog} 
+            />
+            )
+        })
+        setItems(bgs)
+    },[blogs])
+    
     return(
         <div className='body-section'>
-            <Item />
-            <Item />
-            <Item />
-            <Item />
-            <Item />
-            <Item />
-            <Item />
-            <Item />
-            <Item />
+            {items}
         </div>
     )
 }
