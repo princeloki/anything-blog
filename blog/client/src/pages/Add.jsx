@@ -4,7 +4,7 @@ import Nav from "./components/Nav"
 import React, { useEffect,useState,useContext } from 'react';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import {UserDataContext} from "./components/Usercontext"
+import { UserDataContext } from "./components/Usercontext"
 import axios from 'axios'
 
 function Add(){
@@ -16,26 +16,36 @@ function Add(){
         Author: user.name,
         Date: date,
         Category: "",
-        mainImg: "",
-        blogData: ""
+        Mainimg: "",
+        Blogdata: ""
     })
 
     const [uploadedImageUrl, setUploadedImageUrl] = useState("");
 
-    useEffect(() =>{
-        console.log(user);
-    },[])
+    useEffect(() => {
+        if (user) {
+            setBlogData(prevBlogData => ({
+                ...prevBlogData,
+                Author: user.name,
+            }));
+        }
+    }, [user, blogData.Mainimg]);
 
     function postBlog(e){
-        console.log(blogData)
-        // e.preventDefault();
-        // axios.post("http://127.0.0.1:3000/api/blogpost", blogData)
-        // .then(data => {
-        //     console.log(data.data);
-        // })
-        // .catch(err => {
-        //     console.log(err);
-        // })
+        e.preventDefault();
+        axios.post("http://127.0.0.1:3000/api/blogpost", blogData)
+        .then(data => {
+            console.log(data.data.message);
+            setUser(prevUserData=>{
+                return {
+                    ...prevUserData,
+                    blogs: [...blogData],
+                }
+            })
+        })
+        .catch(err => {
+            console.log(err);
+        })
     }   
 
     function handleChange(e){
@@ -51,31 +61,29 @@ function Add(){
         setBlogData(prevBlogData=>{
             return{
                 ...prevBlogData,
-                blogData: value
+                Blogdata: value
             }
         })
     }
-
-    function uploadAdapter(loader){
+    function uploadAdapter(loader) {
         return {
             upload: async () => {
-              const data = new FormData();
-              data.append("name", await loader.file.name)
-              data.append('img', await loader.file);
-        
-              try {
-                const response = await axios.post('http://127.0.0.1:3000/api/upload', data);
-                return {
-                  default: response.data.url
-                };
-              } catch (error) {
-                console.error(error);
-                throw new Error('Could not upload file.');
-              }
+                const data = new FormData();
+                data.append('img', await loader.file);
+    
+                try {
+                    const response = await axios.post('http://127.0.0.1:3000/api/upload', data);
+                    const imageURL = response.data;
+    
+                    return { default: imageURL };
+                } catch (error) {
+                    console.error(error);
+                    throw new Error('Could not upload file.');
+                }
             }
-          };
+        };
     }
-
+    
     function uploadPlugin(editor){
         editor.plugins.get("FileRepository").createUploadAdapter = (loader) =>{
             return uploadAdapter(loader);
@@ -83,7 +91,6 @@ function Add(){
     }
 
     function uploadImage(e){
-        console.log("Uploading")
         const file = e.target.files[0];
         const formData = new FormData();
         formData.append("img", file);
@@ -95,12 +102,10 @@ function Add(){
             setBlogData(prevBlogData =>{
                 return {
                     ...prevBlogData,
-                    mainImg: imageURL
+                    Mainimg: imageURL
                 }
             })
         })
-        
-        console.log(blogData.mainImg)
     }
 
     return(
@@ -108,35 +113,37 @@ function Add(){
             <Nav />
             <div className="blog-maker-page">
                 <div className="container">
-                    <h1 className='head default'>Blog Maker</h1>
-                    <label htmlFor="Title">Title</label>
-                    <input className="in-text" onChange={(e)=>handleChange(e)} value={blogData.Title} id="Title" name="Title" type="text" placeholder="...Enter Blog name here"/>
-                    <label htmlFor="Category">Category</label>
-                    <input className="in-text"  onChange={(e)=>handleChange(e)} value={blogData.Category} id="Category" name="Category" type="text" placeholder="...Enter Blog type here"/>
-                    <div className="upload-info">
-                        <input type="file" accept="image/*" onChange={(e)=>uploadImage(e)} className="upload"/>
-                    </div>
+                    <form onSubmit={postBlog}>
+                        <h1 className='head default'>Blog Maker</h1>
+                        <label htmlFor="Title">Title</label>
+                        <input className="in-text" onChange={(e)=>handleChange(e)} value={blogData.Title} id="Title" name="Title" type="text" placeholder="...Enter Blog name here"/>
+                        <label htmlFor="Category">Category</label>
+                        <input className="in-text"  onChange={(e)=>handleChange(e)} value={blogData.Category} id="Category" name="Category" type="text" placeholder="...Enter Blog type here"/>
+                        <div className="upload-info">
+                            <input type="file" accept="image/*" onChange={(e)=>uploadImage(e)} className="upload"/>
+                        </div>
 
-                    
-                <div className='ckeditor'>
-                    <CKEditor
-                        editor={ ClassicEditor }
-                        config={{
-                            extraPlugins: [uploadPlugin]
-                        }}
-                        onChange={ ( e, editor ) => {
-                            handleEditor(e, editor.getData());
-                        } }
-                        onBlur={ ( event, editor ) => {
-                            console.log( 'Blur.', editor );
-                        } }
-                        onFocus={ ( event, editor ) => {
-                            console.log( 'Focus.', editor );
-                        } }
-                    />
-                </div>
+                        
+                        <div className='ckeditor'>
+                            <CKEditor
+                                editor={ ClassicEditor }
+                                config={{
+                                    extraPlugins: [uploadPlugin]
+                                }}
+                                onChange={ ( e, editor ) => {
+                                    handleEditor(e, editor.getData());
+                                } }
+                                onBlur={ ( event, editor ) => {
+                                    console.log( 'Blur.', editor );
+                                } }
+                                onFocus={ ( event, editor ) => {
+                                    console.log( 'Focus.', editor );
+                                } }
+                            />
+                        </div>
 
-                    <button className="blog-button" onClick={postBlog}>Post</button>
+                        <button type="submit" className="blog-button">Post</button>
+                    </form>
                 </div>
             </div>
         </div>
