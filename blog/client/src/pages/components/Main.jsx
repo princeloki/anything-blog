@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Item from './Item'
+import Side from './Side'
 import { useMemo,useEffect, useContext,useState } from 'react'
 import { BlogDataContext } from './Blogscontext';
 
@@ -28,16 +29,7 @@ function Main(props){
         <div className="mid-section">
             <div className='body-section'>
                 {items}
-            </div>
-            <div className="side">
-                <h2>Popular Categories</h2>
-                    <div className="cats">
-                        <a className="extra" href="#">Travel</a>
-                        <a className="extra" href="#">Fashion</a>
-                        <a className="extra" href="#">Lifestyle</a>
-                        <a className="extra" href="#">Technology</a>
-                        <a className="extra" href="#">Relationships</a>
-                    </div>
+                <Side />
             </div>
         </div>
     )
