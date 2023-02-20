@@ -55,13 +55,22 @@ svg:hover{
 }
 
 .main-container{
-  width: 90%;
-  margin: 3em auto;
+  width: 60%;
+  margin: 0 auto;
+  padding-top: 1em;
+  padding: 0 auto;
 }
 
 nav{
-  height: 4em;
-  margin-bottom: 2em;
+  height: 5em;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 5;
+  background:#f3f3f3f3;
+  border-bottom: 2px solid rgb(59, 133, 114);;
 }
 
 ul{
@@ -70,6 +79,8 @@ ul{
   gap: 5em;
   align-items: center;
   position: relative;
+  width: 60%;
+  margin: 1em auto;
 }
 .logo{
   margin-right: auto;
@@ -179,20 +190,51 @@ ul{
   font-size: 0.8em;
 }
 
-.body-section{
-  width: 80%;
+
+.mid-section{
+  margin-top: 5em !important;
+  padding-top: 5em;
   margin: 0 auto 4em auto;
+  display: flex;
+  flex-direction: row;
+}
+
+
+.side{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  width: 30%;
+  gap: 1em;
+  margin: 4em auto;
+}
+
+.cats{
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   gap: 0.5em;
-  border-top: 0.8px solid rgb(86, 179, 155);
-  padding-top: 2em;
+}
+
+.extra{
+  border: 1px solid #474747;
+  border-radius: 3px;
+  height: 2em;
+  width: 30%;
+  margin: auto;
+}
+
+.body-section{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 0.5em;
+  width: 65%;
 }
 
 .item-container{
-  width: 32%;
-  height: 20em;
+  width: 49%;
+  height: 15em;
   position: relative;
   border-radius: 10px;
 }
@@ -214,18 +256,13 @@ ul{
   }
 
 .item-container:first-of-type{
-  width: 64%;
+  width: 90%;
   height: 30em;
+  transition: width 1s ease-in-out;
 }
 
-
-.item-container:nth-of-type(2){
-  height: 25em;
-  transition: height 1s;
-}
-
-.item-container:nth-of-type(2):hover{
-  height: 30em;
+.item-container:first-of-type:hover{
+  width: 100%;
 }
 
 .item-box{
