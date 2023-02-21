@@ -533,6 +533,12 @@ footer button{
   font-size: 2em;
 }
 
+.sent-msg{
+  border: 2px solid rgb(123, 206, 185);
+  padding: 0.2em;
+  font-size: 1.5em;
+}
+
 .blog-maker-page{
   display: flex;
   flex-direction: column;

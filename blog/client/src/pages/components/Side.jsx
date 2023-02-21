@@ -21,7 +21,6 @@ function Side(props) {
     });
   };
 
-
   return (
     <div className="side">
       <h2>Common Categories</h2>

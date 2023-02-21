@@ -1,7 +1,10 @@
+
+
 import React,{ useState } from 'react';
 import { FaInstagram } from 'react-icons/fa'
 import { BsFacebook } from 'react-icons/bs'
 import { AiFillTwitterCircle } from 'react-icons/ai'
+import axios from 'axios'
 
 function Footer(){
     const [formData, setFormData] = useState({
@@ -10,10 +13,18 @@ function Footer(){
         query: '',
     })
     const [subEmail, setSubEmail] = useState("")
+    const [sent, setSent] = useState(false)
 
     function sendForm(e){
         e.preventDefault();
-        console.log(formData)
+        try{
+        const contact = axios.post('http://127.0.0.1:3000/api/contact', formData)
+        console.log(contact.data)
+        setSent(true)
+        }
+        catch(err){
+            console.log(err)
+        }
     }
 
     function handleChange(e){
@@ -57,12 +68,19 @@ function Footer(){
                     </div>
                     <div className="row3">
                         <h2>Contact Us</h2>
+                        {!sent ? 
+                        (
                         <form onSubmit={sendForm}>
                             <input onChange={(e)=>handleChange(e)} value={formData.email} id="email" name="email" type="text" placeholder='...Enter email'/>
                             <input onChange={(e)=>handleChange(e)} value={formData.name} id="name" name="name"  type="text" placeholder='...Name'/>
                             <textarea onChange={(e)=>handleChange(e)} name="query" id="query" cols="30" rows="10" placeholder="...What is your query?"></textarea>
                             <button type="submit">Submit</button>
                         </form>
+                        ):
+                        (
+                        <div className='mes-div'><h1 className="sent-msg">Your message has been delivered!</h1></div>
+                        )
+                        }
                     </div>
                 </div>
                 <div className="bottom">
