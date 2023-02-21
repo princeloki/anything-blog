@@ -215,6 +215,7 @@ ul{
   gap: 1em;
   margin: 0 auto;
   height: 30%;
+  text-align: left;
 }
 
 .cats{
@@ -222,16 +223,26 @@ ul{
   flex-direction: row;
   flex-wrap: wrap;
   gap: 0.5em;
-  border-bottom: 1px solid #747474;
+  border-bottom: 1px solid #bbbbbb;
   padding-bottom: 2em;
 }
 
 .extra{
+  text-align: center;
   border: 1px solid #474747;
   border-radius: 3px;
   height: 2em;
   width: 30%;
-  margin: auto;
+}
+
+.bot-tags{
+  display: flex;
+  flex-direction: row;
+  gap: 2em;
+}
+
+.bot-tags a{
+  color:rgb(114, 114, 114) !important;
 }
 
 .body-section{
@@ -559,38 +570,47 @@ footer button{
   padding-bottom: 0.3em;
 }
 
+#Category{
+  background: none;
+  border: 1px solid rgb(80, 80, 80);
+  border-radius: 5px;
+  width: 50%;
+  height: 2.5em;
+}
+
+option{
+  font-size: 1.2em;
+}
+
 .blog-maker-page input{
   width: 100%;
 }
 
 .upload-info{
   width: 50%;
-  display: flex;
-  flex-direction: row;
   gap: 0.2em;
   padding-top: 1em;
 }
 
-.upload-info p{
-  width: 15%;
-  border-bottom: 1px solid rgb(48, 48, 48);
-}
 
 .upload{
-  background:rgb(74, 141, 123);
   border: none;
   border-radius: 8px;
   height: 2em;
   font-size: 0.8em;
   font-weight: bold;
-  color: #fff;
+  color: #1d1d1d;
   height: 3em;
+}
+
+.upload:hover{
+  cursor: pointer;
 }
 
 .blog-button{
   height: 2.5em;
   width: 10%;
-  background:rgb(123, 206, 185);
+  background:rgb(99, 163, 147);
   border: none;
   border-radius: 5px;
   color: #fff;

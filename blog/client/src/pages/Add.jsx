@@ -53,6 +53,7 @@ function Add(){
     }   
 
     function handleChange(e){
+        console.log(blogData)
         setBlogData(prevBlogData=>{
             return{
             ...prevBlogData,
@@ -122,8 +123,18 @@ function Add(){
                             <h1 className='head default'>Blog Maker</h1>
                             <label htmlFor="Title">Title</label>
                             <input className="in-text" onChange={(e)=>handleChange(e)} value={blogData.Title} id="Title" name="Title" type="text" placeholder="...Enter Blog name here"/>
-                            <label htmlFor="Category">Category</label>
-                            <input className="in-text"  onChange={(e)=>handleChange(e)} value={blogData.Category} id="Category" name="Category" type="text" placeholder="...Enter Blog type here"/>
+                            <label htmlFor="Category">Category
+                            <select value={blogData.Category} name="Category" id="Category"  onChange={(e)=>handleChange(e)} >   
+                                <option>--Choose Category--</option>
+                                <option value="Music">Music</option>
+                                <option value="Travel">Travel</option>
+                                <option value="Tech">Tech</option>
+                                <option value="Relationships">Relationships</option>
+                                <option value="Lifestyle">Lifestyle</option>
+                                <option value="Fashion">Fashion</option>
+                                <option value="DIY">DIY</option>
+                            </select>
+                            </label>
                             <div className="upload-info">
                                 <input type="file" accept="image/*" onChange={(e)=>uploadImage(e)} className="upload"/>
                             </div>
