@@ -39,7 +39,7 @@ function Blog(props){
                         <div className="m-img" style={{background: `url(${blog.Mainimg})`}}></div>
                         <h1 className="blog-title">{blog.Title}</h1>
                         <div className="cont">
-                            <div dangerouslySetInnerHTML={{ __html: blog.Blogdata }} />;
+                            <div dangerouslySetInnerHTML={{ __html: blog.Blogdata }} />
                         </div>
                     </div>
                     }

@@ -11,7 +11,7 @@ import Footer from "./components/Footer"
 
 function Add(){
     const navigate = useNavigate();
-    // const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
     const today = new Date();
     const options = { weekday: 'long', year: 'numeric', month: 'numeric', day: 'numeric' };
     const formattedDate = today.toLocaleDateString('en-US', options);
@@ -19,7 +19,7 @@ function Add(){
 
     const date = `${dayOfWeek}, ${dateString}`;
 
-    const {user, setUser} = useContext(UserDataContext)
+    const {user} = useContext(UserDataContext)
     const [blogData, setBlogData] = useState({
         Title: "",
         Author: user.name,
@@ -30,6 +30,7 @@ function Add(){
     })
 
     const [uploadedImageUrl, setUploadedImageUrl] = useState("");
+    const [posted, setPosted] = useState(false)
 
     useEffect(() => {
         if (user) {
@@ -45,7 +46,7 @@ function Add(){
         axios.post("http://127.0.0.1:3000/api/blogpost", blogData)
         .then(data => {
             console.log(data.data.message);
-            navigate("/", {replace: true});
+            setPosted(true)
         })
         .catch(err => {
             console.log(err);
@@ -53,7 +54,6 @@ function Add(){
     }   
 
     function handleChange(e){
-        console.log(blogData)
         setBlogData(prevBlogData=>{
             return{
             ...prevBlogData,
@@ -117,10 +117,11 @@ function Add(){
         <div>
             <div className="main-container">
                 <Nav />
-                <div className="blog-maker-page">
+                <div className="page-def">
                     <div className="container">
+                        <h1 className='head default'>Blog Maker</h1>
+                        {!posted ? (
                         <form onSubmit={postBlog}>
-                            <h1 className='head default'>Blog Maker</h1>
                             <label htmlFor="Title">Title</label>
                             <input className="in-text" onChange={(e)=>handleChange(e)} value={blogData.Title} id="Title" name="Title" type="text" placeholder="...Enter Blog name here"/>
                             <label htmlFor="Category">Category
@@ -160,6 +161,13 @@ function Add(){
 
                             <button type="submit" className="blog-button">Post</button>
                         </form>
+                        )
+                        : (
+                        <div className="success-post">
+                            <h1>Blog Posted Successfully!</h1>
+                            <a href="/">Click here to return to the main page</a>
+                        </div>
+                        )}
                     </div>
                 </div>
             </div>
