@@ -16,6 +16,8 @@ const JWTStrategy = passportJWT.Strategy
 
 const app = express()
 
+// app.use('/uploads', express.static('uploads'));
+
 require('dotenv/config')
 app.use(passport.initialize())
 

@@ -1,24 +1,30 @@
 const mongoose = require('mongoose');
 
 const blogSchema = mongoose.Schema({
-    title:{
+    Title:{
         type: 'String',
         required: true,
     },
-    author:{
+    Author:{
         type: 'String',
         required: true,
     },
-    date:{
+    Date:{
         type: 'String',
         required: true,
     },
-    category:{
+    Category:{
         type: 'String',
         required: true,
     },
-    image:{
+    Mainimg:{
+        type: 'String',
+        required: true,
+    },
+    Blogdata:{
         type: 'String',
         required: true,
     }
 })
+
+module.exports = mongoose.model("Blog", blogSchema);

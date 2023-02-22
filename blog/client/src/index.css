@@ -23,7 +23,7 @@ body, *, h1, h2, h3, a{
 }
 
 .inactive{
-  display: none;
+  display: none;  
 }
 
 .active{
@@ -130,7 +130,7 @@ ul{
 }
 
 .user-sec *{
-  padding-right: 0.5em;
+  margin-right: 0.5em;
 }
 
 .profile-menu *{
@@ -138,8 +138,9 @@ ul{
 }
 
 .profile-menu{
+  align-items: center;
   gap: 0.5em;
-  width: 15%;
+  width: 20%;
   position: absolute;
   top: 3em;
   right: 0;
@@ -157,6 +158,8 @@ ul{
   flex-direction: column;
   gap: 0;
   padding: 0 !important;
+  width: 100%;
+  margin: 0;
 }
 
 .profile-menu a{
@@ -176,7 +179,7 @@ ul{
   align-content: center;
   background-color: #f1f1f1;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  font-size: 1.2 em;
+  font-size: 1em;
   height: 1.5em;
   width: 1.5em;
   border-radius: 50%;
@@ -708,7 +711,7 @@ option{
   border-radius: 3px;
 }
 
-.prof-page img,svg{
+.prof-page img, .prof-page svg{
   font-size: 2em;
 }
 
