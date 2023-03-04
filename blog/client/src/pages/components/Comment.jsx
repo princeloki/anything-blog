@@ -29,7 +29,7 @@ function Comment(props){
 
     function addComment(e){
         e.preventDefault()
-        comments[0].push(formData)
+        comments.length !=0 ? comments[0].push(formData) : comments.push(formData)
         formData.body ?
         axios.post(`http://127.0.0.1:3000/api/comment/${id}`, comments)
         .then(message=>{

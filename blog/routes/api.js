@@ -161,6 +161,7 @@ router.post('/blogpost', async (req, res) => {
         const blog = new Blog({
           Title: req.body.Title,
           Author: req.body.Author,
+          UserImage: req.body.UserImage,
           Date: req.body.Date,
           Category: req.body.Category,
           Mainimg: req.body.Mainimg,
@@ -221,12 +222,14 @@ router.post('/comment/:id', (req, res) => {
   const id = req.params.id
   const nComments = req.body
   Blog.findOneAndUpdate({ _id: id }, { $set: {Comments: nComments}},
-  {returnOriginal: false},
-  function(err, result){
-    if(err) throw err;
-
-    console.log("Updated comments", result.value);
-    res.send(result.value);
+  {new: true})
+  .then((result) => {
+    console.log("Updated comments");
+    res.send(result);
+  })
+  .catch((err) => {
+    console.error(err);
+    res.status(500).send("Error updating comments")
   })
 
 })
@@ -244,7 +247,7 @@ router.get('/secret', passport.authenticate("jwt", { session:false }), (req, res
                 username: req.user.username,
                 email: req.user.email,
                 blogs: req.user.blogs,
-                subscribed: req.user.subscribed,
+                subscribed: false,
                 image: ""
             })
         } else if(req.user.type=="Creator"){          

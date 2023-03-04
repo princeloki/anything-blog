@@ -23,6 +23,7 @@ function Add(){
     const [blogData, setBlogData] = useState({
         Title: "",
         Author: user.name,
+        UserImage: user.image,
         Date: date,
         Category: "",
         Mainimg: "",
@@ -135,6 +136,7 @@ function Add(){
                                 <option value="Lifestyle">Lifestyle</option>
                                 <option value="Fashion">Fashion</option>
                                 <option value="DIY">DIY</option>
+                                <option value="Education">Education</option>
                             </select>
                             </label>
                             <div className="upload-info">

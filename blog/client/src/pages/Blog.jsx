@@ -25,10 +25,12 @@ function Blog(props){
         
         fetchBlog()
     }, [])
+    
 
     useEffect(() => {
-        {blog && 
-            setComs(blog.Comments[0].map((comment, index)=>{
+        if(blog){ 
+            const Comments = blog.Comments.length == 0 ? blog.Comments : blog.Comments[0] 
+            const mappedComms = (Comments.map((comment, index)=>{
                 return(
                 <Comment
                 key={index} 
@@ -39,6 +41,7 @@ function Blog(props){
                 />
                 )
             }))
+            setComs(mappedComms)
         }
     }, [blog])
 
@@ -51,10 +54,11 @@ function Blog(props){
                     {
                     blog==null ? <div><h2>Loading.....</h2></div> :
                     <div className="blog-body">
+                        <h2 className="blog-title">{blog.Title}</h2>
                         <div className="blog-info">
-                            <FaUserAlt className="user-icon"/>
+                            {blog.userImg ? <img src={blog.userImg} /> : <FaUserAlt className="user-icon"/>}
                             <div className="right">
-                                <h4 className="auth">{blog.Author}</h4>
+                                <h4 className="auth">by {blog.Author}</h4>
                                 <div className="bot">
                                     <h5 className="cat">{blog.Category}</h5>
                                     <h6 className="dat">{blog.Date}</h6>
@@ -62,7 +66,6 @@ function Blog(props){
                             </div>
                         </div> 
                         <div className="m-img" style={{background: `url(${blog.Mainimg})`}}></div>
-                        <h1 className="blog-title">{blog.Title}</h1>
                         <div className="cont">
                             <div dangerouslySetInnerHTML={{ __html: blog.Blogdata }} />
                         </div>
@@ -72,8 +75,7 @@ function Blog(props){
                             <Comment
                             id={id} 
                             name={user.username}
-                            comments={blog.Comments}
-                            replies={blog.replies}/>
+                            comments={blog.Comments}/>
                             {coms}
                         </div>
                     </div>

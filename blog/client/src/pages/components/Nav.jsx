@@ -9,7 +9,6 @@ import { useContext,useState } from "react"
 import { UserDataContext } from "./Usercontext"
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
-import { Link } from 'react-router-dom';
 
 function Nav({type, username}){
     const navigate = useNavigate()
