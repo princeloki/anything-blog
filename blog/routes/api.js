@@ -217,6 +217,20 @@ router.post('/contact', (req, res) => {
   })
 })
 
+router.post('/comment/:id', (req, res) => {
+  const id = req.params.id
+  const nComments = req.body
+  Blog.findOneAndUpdate({ _id: id }, { $set: {Comments: nComments}},
+  {returnOriginal: false},
+  function(err, result){
+    if(err) throw err;
+
+    console.log("Updated comments", result.value);
+    res.send(result.value);
+  })
+
+})
+
 router.get('/secret', passport.authenticate("jwt", { session:false }), (req, res, next) => {
     if(!req.user){
         res.json({

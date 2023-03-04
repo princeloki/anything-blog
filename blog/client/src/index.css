@@ -8,6 +8,10 @@
 
   color-scheme: light dark;
   background-color: #f3f3f3;
+  --primary-color: #7EA3CC;
+  --secondary-color: #CCAD8F;
+  --tertiary-color: #255C99;
+  --fill: #262626;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -44,7 +48,7 @@ svg:hover{
 }
 
 .default{
-  color: rgb(86, 179, 155);
+  color: var(--primary-color);
   font-size: 2em;
   font-weight: bold;
   font-family: 'Pacifico', cursive;
@@ -70,7 +74,9 @@ nav{
   width: 100%;
   z-index: 5;
   background:#f3f3f3f3;
-  border-bottom: 2px solid rgb(59, 133, 114);;
+  border-bottom: 2px solid var(--tertiary-color);
+  -webkit-box-shadow: 0 4px 6px -6px #222;
+  -moz-box-shadow: 0 4px 6px -6px #222;
 }
 
 ul{
@@ -95,7 +101,7 @@ ul{
 }
 
 .links a:hover{
-  border-bottom: 1px solid rgb(86, 179, 155);
+  border-bottom: 1px solid var(--primary-color);
 }
 
 
@@ -111,11 +117,11 @@ ul{
 .search-bar input{
   background: #f3f3f3;
   border: none;
-  border-bottom: 1px solid rgb(86, 179, 155);
+  border-bottom: 1px solid var(--primary-color);
 }
 
 .subscribe-button{
-  background: rgb(86, 179, 155);
+  background: var(--primary-color);
   border: none;
   width: 50%;
   padding: 0 1em 0 1em;
@@ -172,7 +178,7 @@ ul{
 
 
 .profile-menu a:hover{
-  border-bottom: 1.5px solid rgb(86, 179, 155);
+  border-bottom: 1.5px solid var(--primary-color);
 }
 
 .user-icon{
@@ -517,7 +523,7 @@ footer button{
   width: 100%;
   border: none;
   border-radius: 5px;
-  background:rgb(86, 179, 155);
+  background:var(--primary-color);
   font-size: 1em;
   font-weight: bold;
 }
@@ -743,4 +749,103 @@ option{
   background: none;
   border: 1px solid #474747;
   border-radius: 2px;
+}
+
+.comments{
+  display: flex;
+  flex-direction: column;
+}
+
+.comments h2{
+  margin: 2em 0;
+  font-size: 2.5em;
+  font-weight: bold;
+}
+
+
+.com{
+  display: flex;
+  flex-direction: row;
+  gap: 1em;
+  align-items: center;
+  width: 100%;
+}
+
+.identity{
+  display: flex;
+  flex-direction: column;
+}
+
+.identity p{
+  font-weight: bold;
+}
+
+.com-mid{
+  width: 80%;
+  align-items: left;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+}
+
+
+.com svg{
+  background: #fff;
+  font-size: 2.5em;
+  border-radius: 999px;
+}
+
+.com form{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  gap: 2%;
+  width: 100%;
+  justify-content: left;
+  align-items: center;
+}
+
+
+.comment-paragraph{
+  width: 80%;
+  font-weight: bold;
+}
+
+.comment-input{
+  background: #fff !important;
+  border: 1px solid #5a5a5a;
+  width: 85%;
+  height: 1.3em;
+  font-size: 1.1em;
+  font-style: sans-serif !important;
+  border-radius: 5px;
+}
+
+
+.com:first-of-type{
+  margin-bottom: 2em;
+}
+
+.com:first-of-type .comment-input{
+  border: none;
+  border-radius: 0;
+  background: none !important;
+  border-bottom: 1.5px solid var(--primary-color);
+}
+
+.com:first-of-type .comment-input:focus{
+  outline: none;
+  border-bottom: 2px solid var(--primary-color);
+}
+
+
+.com button{
+  color: #fff;
+  font-size: 1.1em;
+  font-weight: bold;
+  height: 2.5em;
+  width: 15%;
+  background: var(--primary-color);
+  border: none;
+  border-radius: 50px;
 }

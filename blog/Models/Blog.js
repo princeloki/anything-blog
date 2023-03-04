@@ -24,6 +24,10 @@ const blogSchema = mongoose.Schema({
     Blogdata:{
         type: 'String',
         required: true,
+    },
+    Comments:{
+        type: 'Array',
+        required: true,
     }
 })
 

@@ -1,14 +1,18 @@
-import React,{ useState,useEffect } from "react"
+import React,{ useState,useEffect,useContext } from "react"
 import Nav from './components/Nav'
 import axios from 'axios'
 import Side from './components/Side'
 import Footer from './components/Footer'
 import { FaUserAlt } from "react-icons/fa"
 import { useParams } from 'react-router-dom';
+import Comment from './components/Comment'
+import { UserDataContext } from "./components/Usercontext"
 
 function Blog(props){
     const [blog, setblog] = useState(null)
+    const {user} = useContext(UserDataContext)
     const {id} = useParams()
+    const [coms, setComs] = useState(null)
     useEffect(() => {
         async function fetchBlog(){
             const response = await axios.get(`http://127.0.0.1:3000/api/blogs/${id}`)
@@ -16,6 +20,22 @@ function Blog(props){
         }
         fetchBlog()
     },[])
+
+    useEffect(() => {
+        {blog && 
+            setComs(blog.Comments[0].map((comment, index)=>{
+                return(
+                <Comment
+                key={index} 
+                name={comment.name}
+                body={comment.body}
+                replies={comment.replies}
+                complete={comment.complete}
+                />
+                )
+            }))
+        }
+    }, [blog])
 
     return(
         <div>
@@ -40,6 +60,16 @@ function Blog(props){
                         <h1 className="blog-title">{blog.Title}</h1>
                         <div className="cont">
                             <div dangerouslySetInnerHTML={{ __html: blog.Blogdata }} />
+                        </div>
+                        
+                        <div className="comments">
+                            <h2>Comments</h2>
+                            <Comment
+                            id={id} 
+                            name={user.username}
+                            comments={blog.Comments}
+                            replies={blog.replies}/>
+                            {coms}
                         </div>
                     </div>
                     }
