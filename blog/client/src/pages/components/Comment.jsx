@@ -1,3 +1,5 @@
+
+
 import React,{useState,useContext} from 'react';
 import { FaUserAlt } from "react-icons/fa"
 import { UserDataContext } from './Usercontext';
@@ -6,7 +8,6 @@ import axios from 'axios';
 function Comment(props){
     const id = props.id ? props.id : ""
     const {user} = useContext(UserDataContext)
-    const [comment, setComment] = props.comments ? useState(props.body) : useState("")
 
     const comments = props.comments ? props.comments : []
     const replies = props.replies ? props.replies : []

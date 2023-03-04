@@ -1,3 +1,5 @@
+@import url('index.css');
+
 .app{
     position: relative;
 }
@@ -68,7 +70,7 @@
 
 .form-page input{
     background: #fff;
-    border: 1px solid rgb(103, 103, 103);
+    border: 1px solid rgb(57, 57, 57);
     border-radius: 3px;
 }
 
@@ -102,7 +104,7 @@
 }
 
 .form-page button{
-    background: rgb(86, 179, 155);
+    background: var(--primary-color);
     border: none;
     color: #fff;
     font-weight: bold;
@@ -110,7 +112,7 @@
 }
 
 .form-page button:hover{
-    background: rgb(68, 159, 136);
+    background: var(--primary-color);
 }
 
 label{

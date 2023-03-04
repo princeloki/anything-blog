@@ -92,7 +92,7 @@ function Register(){
                 {
                     `
                     #root{
-                        background: rgb(86, 179, 155);
+                        background: var(--tertiary-color);
                         height: 100vh;
                         width: 100wh;
                     }

@@ -1,3 +1,6 @@
+
+
+
 import React from "react"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faM, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
@@ -6,6 +9,7 @@ import { useContext,useState } from "react"
 import { UserDataContext } from "./Usercontext"
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
+import { Link } from 'react-router-dom';
 
 function Nav({type, username}){
     const navigate = useNavigate()
@@ -28,7 +32,7 @@ function Nav({type, username}){
             <ul>
                 <a href="/"><h1 className="logo default">aNyThNG</h1></a>
                 <div className="links">
-                    {user.type=="Reader" && <a href="favorite">Favorites</a>}
+                    {user.type=="Reader" && <a onClick={()=>navigate("/favorite", {replace: true})}>Favorites</a>}
                 </div>
                 
                 <div className="search-bar">
@@ -49,14 +53,14 @@ function Nav({type, username}){
                             <p className="user-name">{user.username}</p>
                             <p className="user-email">{user.email}</p>
                             <ul>
-                                <a href="profile">Profile</a>
-                                {user.type=="Creator" && <a href="add">Add New</a>}
-                                <a href="#" onClick={logout}>Logout</a>
+                                <a onClick={()=>navigate("/profile", {replace: true})}>Profile</a>
+                                {user.type=="Creator" && <a onClick={()=>navigate("/add", {replace: true})}>Add New</a>}
+                                <a onClick={logout}>Logout</a>
                             </ul>
                         </div>
                         }
-                        {!user.username && <a href="Register">Register</a>}
-                        {!user.username && <a href="/login">Sign In</a>}
+                        {!user.username && <a onClick={()=>navigate("/Register", {replace: true})}>Register</a>}
+                        {!user.username && <a onClick={()=>navigate("//login", {replace: true}>Sign)}>In</a>}
                     </div>
                 </div>
             </ul>

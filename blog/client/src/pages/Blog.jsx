@@ -1,3 +1,6 @@
+
+
+
 import React,{ useState,useEffect,useContext } from "react"
 import Nav from './components/Nav'
 import axios from 'axios'
@@ -13,13 +16,15 @@ function Blog(props){
     const {user} = useContext(UserDataContext)
     const {id} = useParams()
     const [coms, setComs] = useState(null)
+    
     useEffect(() => {
         async function fetchBlog(){
-            const response = await axios.get(`http://127.0.0.1:3000/api/blogs/${id}`)
-            setblog(response.data)
-        }
+                const response = await axios.get(`http://127.0.0.1:3000/api/blogs/${id}`)
+                setblog(response.data)
+            }
+        
         fetchBlog()
-    },[])
+    }, [])
 
     useEffect(() => {
         {blog && 
