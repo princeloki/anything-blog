@@ -14,8 +14,7 @@ function Register(){
         username: '',
         password: '',
         second_password: '',
-        blogs:[],
-        subscribed: false,
+        blogs:[]
     })
     
     function handleChange(e){

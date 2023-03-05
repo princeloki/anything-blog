@@ -11,7 +11,7 @@ const blogSchema = mongoose.Schema({
     },
     UserImage:{
         type: 'String',
-        required: true,
+        required: false,
     },
     Date:{
         type: 'String',
@@ -31,7 +31,7 @@ const blogSchema = mongoose.Schema({
     },
     Comments:{
         type: 'Array',
-        required: true,
+        required: false,
     }
 })
 

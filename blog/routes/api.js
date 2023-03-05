@@ -76,6 +76,7 @@ router.post('/register', async (req, res) => {
                         "username": req.body.username,
                         "password": hash,
                         "blogs": [],
+                        "subscribed": false,
                         "image": "",
                     })
                 }                
@@ -84,6 +85,7 @@ router.post('/register', async (req, res) => {
             }
         }
     }catch (err) {
+        console.log(err)
         res.json({error: err.message});
     }
 })
@@ -165,26 +167,67 @@ router.post('/blogpost', async (req, res) => {
           Date: req.body.Date,
           Category: req.body.Category,
           Mainimg: req.body.Mainimg,
-          Blogdata: req.body.Blogdata
+          Blogdata: req.body.Blogdata,
+          Comments: req.body.Comments
         })
         await blog.save()
         res.send({message: "Blog saved successfully"})
     } catch(err){
+      console.log(err)
         res.send({message: err})
     }
 })
-  
+
 router.post('/update', (req, res) => {
   try{
-    User.updateOne({ username: req.body.username }, req.body.blogs)
-  } catch(err){
-    console.log(err.stack);
+    const user = req.body.user
+    const ptype = req.body.type
+    const newOne = req.body.newOne
+    if(ptype == "username"){
+      User.findOneAndUpdate({ username: user }, { $set: {username: newOne}},
+        {new: true})
+        .then((result) => {
+          console.log(`Successfully Updated ${ptype}`);
+          res.send(result);
+        })
+        .catch((err) => {
+          console.error(err);
+          res.status(500).send(`Error updating ${ptype}`)
+        })
+    } else if(ptype == "image"){
+      User.findOneAndUpdate({ username: user }, { $set: {image: newOne}},
+        {new: true})
+        .then((result) => {
+          console.log(`Successfully Updated Image`);
+          res.send(result);
+        })
+        .catch((err) => {
+          console.error(err);
+          res.status(500).send(`Error updating Image`)
+        })
+    } else if (ptype == "password"){
+      const saltRounds = 10
+      const hash = bcrypt.hash(newOne, saltRounds);
+      User.findOneAndUpdate({ username: user }, { $set: {password: hash}},
+        {new: true})
+        .then((result) => {
+          console.log(`Successfully Updated password`);
+          res.send(result);
+        })
+        .catch((err) => {
+          console.error(err);
+          res.status(500).send(`Error updating password`)
+        })
+    }
+  }
+  catch(err){
+    console.log(err)
   }
 })
-
+  
 router.get('/blogs', async (req, res) => {
   try{
-    const blogs = await Blog.find({}, '_id Title Author Date Category Mainimg')
+    const blogs = await Blog.find({}, '_id Title Author UserImage Date Category Mainimg')
     res.send(blogs)
   } catch(err){
     res.send({message: err.stack})
@@ -248,7 +291,7 @@ router.get('/secret', passport.authenticate("jwt", { session:false }), (req, res
                 email: req.user.email,
                 blogs: req.user.blogs,
                 subscribed: false,
-                image: ""
+                image: req.user.image
             })
         } else if(req.user.type=="Creator"){          
             res.json({
@@ -258,7 +301,7 @@ router.get('/secret', passport.authenticate("jwt", { session:false }), (req, res
                 email: req.user.email,
                 blogs: req.user.blogs,
                 subscribed: false,
-                image: ""
+                image: req.user.image
             })
         }
     }

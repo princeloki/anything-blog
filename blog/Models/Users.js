@@ -27,11 +27,11 @@ const userSchema = mongoose.Schema({
     },
     subscribed:{
         type: 'Boolean',
-        required: true,
+        required: false,
     },
     image:{
         type: 'String',
-        required: true,
+        required: false,
     }
 })
 

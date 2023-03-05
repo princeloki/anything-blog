@@ -28,7 +28,7 @@ function Add(){
         Category: "",
         Mainimg: "",
         Blogdata: "",
-        Comments: "",
+        Comments: [],
     })
 
     const [uploadedImageUrl, setUploadedImageUrl] = useState("");

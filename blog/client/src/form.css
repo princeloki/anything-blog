@@ -9,6 +9,7 @@
     top: 4em;
     left: 1em;
     font-size: 1.5em;
+    width: 1.2em !important;
 }
 
 .arrow-left path{

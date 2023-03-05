@@ -20,6 +20,7 @@ function Blog(props){
     useEffect(() => {
         async function fetchBlog(){
                 const response = await axios.get(`http://127.0.0.1:3000/api/blogs/${id}`)
+                console.log(response.data)
                 setblog(response.data)
             }
         
@@ -35,6 +36,7 @@ function Blog(props){
                 <Comment
                 key={index} 
                 name={comment.name}
+                image={comment.image}
                 body={comment.body}
                 replies={comment.replies}
                 complete={comment.complete}
@@ -56,7 +58,7 @@ function Blog(props){
                     <div className="blog-body">
                         <h2 className="blog-title">{blog.Title}</h2>
                         <div className="blog-info">
-                            {blog.userImg ? <img src={blog.userImg} /> : <FaUserAlt className="user-icon"/>}
+                            {blog.UserImage ? <img className="user-icon" src={blog.UserImage} /> : <FaUserAlt className="user-icon"/>}
                             <div className="right">
                                 <h4 className="auth">by {blog.Author}</h4>
                                 <div className="bot">
@@ -73,8 +75,7 @@ function Blog(props){
                         <div className="comments">
                             <h2>Comments</h2>
                             <Comment
-                            id={id} 
-                            name={user.username}
+                            id={id}     
                             comments={blog.Comments}/>
                             {coms}
                         </div>

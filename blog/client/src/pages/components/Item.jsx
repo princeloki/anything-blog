@@ -9,7 +9,7 @@ function Item(props){
     const {user, setUser} = useContext(UserDataContext)
     const [blog, setBlog] = useState(null)
 
-
+    console.log(props.blog)
 
     return(
         <Link to={`/blogs/${props.blog._id}`} className="item-container">
@@ -18,7 +18,7 @@ function Item(props){
                     <h2 className="category">{props.blog.Category}</h2>
                     <h1 className="article-title">{props.blog.Title}</h1>
                     <div className="article-info">
-                        {user.image? <img className="author-img" src={user.image}/> : <FaUserAlt className="author-img"/>}
+                        {props.blog.UserImage? <img className="author-img" src={props.blog.UserImage}/> : <FaUserAlt className="author-img"/>}
                         <p className="author">By {props.blog.Author}</p>
                         <p className="date">{props.blog.Date}</p>
                     </div>
