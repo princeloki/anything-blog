@@ -21,6 +21,20 @@ const app = express()
 require('dotenv/config')
 app.use(passport.initialize())
 
+
+app.use(cors({
+    origin: 'https://anythngblog.com/',
+    optionsSuccessStatus: 200
+  }));
+
+  
+
+app.use(cors({
+    origin: 'http://127.0.0.1:8000',
+    optionsSuccessStatus: 200
+  }));
+  
+
 passport.use(new LocalStrategy({
     usernameField: 'email'
 }, async (email, password, done) => {
@@ -66,12 +80,6 @@ passport.use(new JWTStrategy({
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
-
-app.use(cors({
-    origin: 'http://127.0.0.1:8000',
-    optionsSuccessStatus: 200
-  }));
-  
 app.use('/api', apiRouter);
 
 app.get("*", (req, res) => {

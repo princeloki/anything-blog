@@ -45,7 +45,7 @@ function Add(){
 
     function postBlog(e){
         e.preventDefault();
-        axios.post("http://127.0.0.1:3000/api/blogpost", blogData)
+        axios.post("/api/blogpost", blogData)
         .then(data => {
             console.log(data.data.message);
             setPosted(true)
@@ -79,7 +79,7 @@ function Add(){
                 data.append('img', await loader.file);
     
                 try {
-                    const response = await axios.post('http://127.0.0.1:3000/api/upload', data);
+                    const response = await axios.post('/api/upload', data);
                     const imageURL = response.data;
     
                     return { default: imageURL };
@@ -102,7 +102,7 @@ function Add(){
         const formData = new FormData();
         formData.append("img", file);
         formData.append("name", file.name);
-        axios.post("http://127.0.0.1:3000/api/upload", formData)
+        axios.post("/api/upload", formData)
         .then(response => {
             const imageURL = response.data;
             setUploadedImageUrl(imageURL);

@@ -39,7 +39,7 @@ function Profile(){
             newOne: inputVal,
         })
         try{
-            const response = await axios.post("http://127.0.0.1:3000/api/update", ndata)
+            const response = await axios.post("/api/update", ndata)
             const res = response.data
         } catch(err){
             console.log(err)
@@ -53,7 +53,7 @@ function Profile(){
             newOne: data.newOne,
         })
         try{
-            const response = await axios.post("http://127.0.0.1:3000/api/update", ndata)
+            const response = await axios.post("/api/update", ndata)
             const res = response.data
         } catch(err){
             console.log(err)
@@ -66,7 +66,7 @@ function Profile(){
         formData.append("img", file);
         formData.append("name", file.name);
         try {
-          const response = await axios.post("http://127.0.0.1:3000/api/upload", formData);
+          const response = await axios.post("/api/upload", formData);
           const imageURL = response.data;
           setImageData(prevFormData => {
             return {

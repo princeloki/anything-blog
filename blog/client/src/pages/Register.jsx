@@ -38,7 +38,7 @@ function Register(){
             passwordNumR.test(formData.password) == true ? 
             passwordCapR.test(formData.password) == true ? 
             passwordRangeR.test(formData.password) == true ?
-            axios.post("http://127.0.0.1:3000/api/register", formData)
+            axios.post("/api/register", formData)
             .then(data=>{
                 if(data.data.message=="Username already exists"){
                     alert("Username already exists");

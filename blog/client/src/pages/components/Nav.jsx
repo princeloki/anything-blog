@@ -40,27 +40,24 @@ function Nav({type, username}){
                             <button className="subscribe-button">Subscribe</button>
                             <input type="text" placeholder="..Search for blogs" />
                             <FontAwesomeIcon icon={faMagnifyingGlass} />
-                            <div className="user-sec">
-                                {user.username && 
-                                    (user.image ? <img onClick={show} className="user-icon" src={user.image} alt="" /> : <FaUserAlt onClick={show} className="user-icon"/>)
-                                }
-                                {user.username &&
-                                <div className={"profile-menu " + active}>
-
-                                    <p className="user-name">{user.username}</p>
-                                    <p className="user-email">{user.email}</p>
-                                    <ul>
-                                        <a onClick={()=>navigate("/profile", {replace: true})}>Profile</a>
-                                        {user.type=="Creator" && <a onClick={()=>navigate("/add", {replace: true})}>Add New</a>}
-                                        <a onClick={logout}>Logout</a>
-                                    </ul>
-                                </div>
-                                }
-                                {!user.username && <a onClick={()=>navigate("/Register", {replace: true})}>Register</a>}
-                                {!user.username && <a onClick={()=>navigate("/login", {replace: true})}>Sign In</a>}
-                            </div>
                         </div>
                     }
+                    <div className="user-sec">
+                        {user.image ? <img onClick={show} className="user-icon" src={user.image} alt="" /> : <FaUserAlt onClick={show} className="user-icon"/>}
+                        
+                        <div className={"profile-menu " + active}>
+
+                            {user.username && <p className="user-name">{user.username}</p>}
+                            {user.username && <p className="user-email">{user.email}</p>}
+                            <ul>
+                                {user.username && <a onClick={()=>navigate("/profile", {replace: true})}>Profile</a>}
+                                {user.type=="Creator" && <a onClick={()=>navigate("/add", {replace: true})}>Add New</a>}
+                                {user.username && <a onClick={logout}>Logout</a>}
+                                {!user.username && <a onClick={()=>navigate("/Register", {replace: true})}>Register</a>}
+                                {!user.username && <a onClick={()=>navigate("/login", {replace: true})}>Sign In</a>}
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </ul>
         </nav>

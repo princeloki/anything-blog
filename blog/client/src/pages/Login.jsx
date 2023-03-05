@@ -29,7 +29,7 @@ function Login(){
     function handleSubmit(e){
         e.preventDefault()
         return(
-            axios.post("http://127.0.0.1:3000/api/login", formData)
+            axios.post("/api/login", formData)
             .then(data=>{
                 if(data.status === 200){  
                     setIsLoggedIn(true)

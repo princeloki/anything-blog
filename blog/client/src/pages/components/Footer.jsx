@@ -18,7 +18,7 @@ function Footer(){
     function sendForm(e){
         e.preventDefault();
         try{
-        const contact = axios.post('http://127.0.0.1:3000/api/contact', formData)
+        const contact = axios.post('/api/contact', formData)
         console.log(contact.data)
         setSent(true)
         }

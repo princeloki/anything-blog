@@ -36,7 +36,7 @@ function Comment(props){
         e.preventDefault()
         comments.length !=0 ? comments[0].push(formData) : comments.push(formData)
         formData.body ?
-        axios.post(`http://127.0.0.1:3000/api/comment/${id}`, comments)
+        axios.post(`/api/comment/${id}`, comments)
         .then(message=>{
             location.reload();
         })
@@ -76,7 +76,7 @@ function Comment(props){
                 </form>
                 ) : (
                 <div className="com-mid">
-                    <p className="com-user"><br/>{props.name}</p>
+                    <p className="com-user"><br/>{props.name ? props.name : "Anonymous"}</p>
                     <p className="comment-paragraph">{props.body}</p>
                 </div>
                 )

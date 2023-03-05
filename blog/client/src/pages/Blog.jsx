@@ -19,7 +19,7 @@ function Blog(props){
     
     useEffect(() => {
         async function fetchBlog(){
-                const response = await axios.get(`http://127.0.0.1:3000/api/blogs/${id}`)
+                const response = await axios.get(`/api/blogs/${id}`)
                 console.log(response.data)
                 setblog(response.data)
             }
