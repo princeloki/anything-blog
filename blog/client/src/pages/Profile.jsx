@@ -1,6 +1,6 @@
 
 
-import React,{ useState,useContext,useRef } from "react"
+import React,{ useState,useContext, useCallback } from "react"
 import Nav from "./components/Nav"
 import Footer from "./components/Footer"
 import { UserDataContext } from "./components/Usercontext"
@@ -12,41 +12,45 @@ function Profile(){
     const [editing, setEditing] = useState(false)
     const [switchTo, setSwitchTo] = useState(null)
     const {user} = useContext(UserDataContext)
-    const usernameRef = useRef(null);
-    const passwordRef = useRef(null);
+
     const [imageData, setImageData] = useState({
         type: "image",
         newOne: ""
     })
-    const [ambData, setAmbData] = useState({
-        type: "",
-        newOne: ""
-    })
 
-    function handleChange(e){
-        setAmbData(()=>{
-            return{    
-                type: e.target.name,
-                newOne: e.target.value,
-            }
+    async function sendUpdate(e){
+        e.preventDefault()
+        setEditing(false);
+        setSwitchTo(null);
+
+        let inputVal;
+        let type;
+        if (switchTo === "password") {
+          inputVal = document.getElementById("pass").value;
+          type = "password";
+        } else {
+          inputVal = document.getElementById("user").value;
+          type = "username";
+        }
+
+        const ndata = ({
+            user: user.username,
+            type: type,
+            newOne: inputVal,
         })
-
-        if (e.target.name === 'username') {
-            usernameRef.current.focus();
-        } else if (e.target.name === 'password') {
-            passwordRef.current.focus();
+        try{
+            const response = await axios.post("http://127.0.0.1:3000/api/update", ndata)
+            const res = response.data
+        } catch(err){
+            console.log(err)
         }
     }
 
-    function handleUser(e){
-
-    }
-
-    async function sendUpdate(data){
+    async function sendImage(data){
         const ndata = ({
             user: user.username,
             type: data.type,
-            newOne: data.newOne
+            newOne: data.newOne,
         })
         try{
             const response = await axios.post("http://127.0.0.1:3000/api/update", ndata)
@@ -101,83 +105,60 @@ function Profile(){
         )
     }
 
- const Edit = () => {
-  return (
-    <div className="prof-page">
-      <h1 className="prof-h1">Edit</h1>
-      <div className="sec-item-row">
-        <div className="prof-img-sec">
-          {user.image ? (
-            <img src={user.image} className="prof-img" alt="Profile Image" />
-          ) : (
-            <FaUserAlt className="prof-img" />
-          )}
-          <div className="prof-img-sec-row">
-            <label className="prof-button" htmlFor="up">
-              {user.image ? "Change" : "Upload"}
-            </label>
-            <input type="file" id="up" accept="image/*" onChange={(e) => uploadImage(e)} hidden />
-            <button className="save" onClick={() => sendUpdate(imageData)}>
-              Save
-            </button>
-          </div>
-        </div>
-      </div>
-      <div className="sec-item-row">
-        <div className="sec-row" onClick={() => setSwitchTo("username")}>
-          {switchTo === "username" ? (
-            <input
-              className="prof-input"
-              name="username"
-              value={ambData.newOne}
-              onChange={(e) => handleChange(e)}
-              type="text"
-              placeholder="...Enter new username"
-              ref={usernameRef}
-            />
-          ) : (
-            <h4 className="prof-item">Username: {user.username}</h4>
-          )}
-          <a className="prof-tag" href="#">
-            Change Username
-          </a>
-        </div>
-      </div>
-      <div className="sec-item-row">
-        <div onClick={() => setSwitchTo("password")}>
-          {switchTo === "password" ? (
-            <input
-              className="prof-input"
-              name="password"
-              value={ambData.newOne}
-              onChange={(e) => handleChange(e)}
-              type="password"
-              placeholder="...Enter new password"
-              ref={passwordRef}
-            />
-          ) : (
-            <h4 className="prof-item">Password: *********</h4>
-          )}
-          <a className="prof-tag" href="#">
-            Change Password
-          </a>
-        </div>
-      </div>
-      {editing && (
-        <button
-          className="save"
-          onClick={() => {
-            sendUpdate(passData);
-            setEditing(false);
-            setSwitchTo(null);
-          }}
-        >
-          Save
-        </button>
-      )}
-    </div>
-  );
-};
+    const Edit = () => {
+        return (
+            <div className="prof-page">
+                <h1 className="prof-h1">Edit</h1>
+                <div className="sec-item-row">
+                    <div className="prof-img-sec">
+                        {user.image ? (
+                        <img src={user.image} className="prof-img" alt="Profile Image" />
+                        ) : (
+                        <FaUserAlt className="prof-img" />
+                        )}
+                        <div className="prof-img-sec-row">
+                            <label className="prof-button" htmlFor="up">
+                                {user.image ? "Change" : "Upload"}
+                            </label>
+                            <input type="file" id="up" accept="image/*" onChange={(e) => uploadImage(e)} hidden />
+                            <button className="save" onClick={() => sendImage(imageData)}>
+                                Save
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div className="sec-item-row">
+                    <div className="sec-row" onClick={() => setSwitchTo("username")}>
+                        <h4 className="prof-item">Username: {user.username}</h4>
+                        <a onClick={()=>setEditing(true)} className="prof-tag" href="#">
+                            Change Username
+                        </a>
+                    </div>
+                </div>
+                <div className="sec-item-row">
+                    <div onClick={() => setSwitchTo("password")}>
+                        <h4 className="prof-item">Password: *********</h4>
+                        <a onClick={()=>setEditing(true)} className="prof-tag" href="#">
+                            Change Password
+                        </a>
+                    </div>
+                </div>
+                {editing && 
+                <form onSubmit={sendUpdate}>
+                    {switchTo === "password" ? (
+                        <input className="prof-input" id = "pass" name="password" type="password" placeholder="..Enter your new password"/>
+                    ) : (
+                        <input className="prof-input" id = "user" name="user" type="text" placeholder="..Enter your new Username here"/>
+                    )}
+                    <button className="save" type="submit">
+                        Save
+                    </button>
+                </form>
+                }
+
+            </div>
+        );
+    };
 
 
     const Help = () =>{

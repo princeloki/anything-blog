@@ -9,8 +9,6 @@ function Item(props){
     const {user, setUser} = useContext(UserDataContext)
     const [blog, setBlog] = useState(null)
 
-    console.log(props.blog)
-
     return(
         <Link to={`/blogs/${props.blog._id}`} className="item-container">
             <div className="item-box" style={{background: `url(${props.blog.Mainimg})`}}>
