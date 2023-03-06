@@ -23,16 +23,26 @@ app.use(passport.initialize())
 
 
 app.use(cors({
-    origin: 'https://anythngblog.com/',
+    origin: 'https://anythngblog.herokuapp.com/',
     optionsSuccessStatus: 200
   }));
 
   
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use('/api', apiRouter);
 
-app.use(cors({
-    origin: 'http://127.0.0.1:8000',
-    optionsSuccessStatus: 200
-  }));
+
+app.use(express.static(path.join(__dirname, '/client/dist')));
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '/client/dist','index.html'));
+})
+
+
+// app.use(cors({
+//     origin: 'http://127.0.0.1:8000',
+//     optionsSuccessStatus: 200
+//   }));
   
 
 passport.use(new LocalStrategy({
@@ -78,14 +88,6 @@ passport.use(new JWTStrategy({
     }
 }))
 
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: true }))
-app.use('/api', apiRouter);
-
-app.get("*", (req, res) => {
-    return res.sendFile(path.join(__dirname, "/client/src/index.html"));
-})
-
 
 mongoose.connect(
     process.env.DB_CONNECTION,
@@ -99,7 +101,7 @@ mongoose.connect(
     }
 );
 
-app.listen(process.env.port || 3000,'127.0.0.1', ()=>{
-    console.log('listening on port 3000')
+app.listen(process.env.PORT || 3000, ()=>{
+    console.log('listening on port' + process.env.PORT)
 })
 
